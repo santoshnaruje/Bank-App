@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 const dbPath = path.join(__dirname, "Bank.db");
-
+const port = process.env.PORT || 5000
 const initialize = async () => {
   try {
     db = await open({
@@ -32,15 +32,20 @@ const initialize = async () => {
         amount REAL NOT NULL,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
       )`);
-    app.listen(5000, () => {
-      console.log("server started");
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   } catch (e) {
-    console.log(`DB Error:${e.message}`);
+    console.log(`DB Error: ${e.message}`);
   }
 };
 
 initialize();
+;
+
+
+
+
 
 app.use(
   cors({
